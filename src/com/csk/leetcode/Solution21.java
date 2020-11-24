@@ -32,31 +32,58 @@ public class Solution21 {
                 while (prev.next.val <= currL2.val) {
                     prev = prev.next;
                 }
-                currL2.next = prev.next;
-                prev.next = currL2;
+                ListNode21 insertNode = new ListNode21(currL2.val);
+                insertNode.next = prev.next;
+                prev.next = insertNode;
             }
             l2 = l2.next;
         }
         return newHead.next;
     }
 
+    public ListNode21 mergeTwoLists2(ListNode21 l1, ListNode21 l2) {
+        if(l1 == null) {
+            return l2;
+        }
+        if(l2 == null) {
+            return l1;
+        }
+
+        if(l1.val < l2.val) {
+            l1.next = mergeTwoLists2(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = mergeTwoLists2(l1, l2.next);
+            return l2;
+        }
+    }
+
+    public ListNode21 mergeTwoLists3(ListNode21 l1) {
+        if(l1 == null) {
+            return null;
+        } else {
+            l1.next = mergeTwoLists3(l1.next);
+            return l1;
+        }
+    }
+
     public static void main(String[] args) {
         Solution21 solution = new Solution21();
-        ListNode21 node = new ListNode21(5);
-        node.next = new ListNode21(6);
-        node.next.next = new ListNode21(7);
+        ListNode21 node = new ListNode21(2);
+        node.next = new ListNode21(4);
+        node.next.next = new ListNode21(6);
         node.next.next.next = new ListNode21(8);
         ListNode21 node2 = new ListNode21(1);
-        node2.next = new ListNode21(2);
-        node2.next.next = new ListNode21(3);
-        node2.next.next.next = new ListNode21(4);
-        node = solution.mergeTwoLists(node, node2);
+        node2.next = new ListNode21(3);
+        node2.next.next = new ListNode21(5);
+        node2.next.next.next = new ListNode21(7);
+        node = solution.mergeTwoLists2(node, node2);
         System.out.print(node.val + "->");
         System.out.print(node.next.val + "->");
         System.out.print(node.next.next.val + "->");
         System.out.print(node.next.next.next.val);
     }
-    
+
 }
 
 class ListNode21 {
