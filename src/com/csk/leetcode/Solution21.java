@@ -2,6 +2,7 @@ package com.csk.leetcode;
 
 /**
  * @description: 合并两个有序链表
+ * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
  * @author: caishengkai
  * @date: 2020-11-24 09:40
  */
@@ -58,13 +59,28 @@ public class Solution21 {
         }
     }
 
-    public ListNode21 mergeTwoLists3(ListNode21 l1) {
+    public ListNode21 mergeTwoLists3(ListNode21 l1, ListNode21 l2) {
         if(l1 == null) {
-            return null;
-        } else {
-            l1.next = mergeTwoLists3(l1.next);
+            return l2;
+        }
+        if(l2 == null) {
             return l1;
         }
+
+        ListNode21 virtualHead = new ListNode21(-1, null);
+        ListNode21 prev = virtualHead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                prev.next = l1;
+                l1 = l1.next;
+            } else {
+                prev.next = l2;
+                l2 = l2.next;
+            }
+            prev = prev.next;
+        }
+        prev.next = l1 == null ? l2 : l1;
+        return virtualHead.next;
     }
 
     public static void main(String[] args) {
@@ -77,7 +93,7 @@ public class Solution21 {
         node2.next = new ListNode21(3);
         node2.next.next = new ListNode21(5);
         node2.next.next.next = new ListNode21(7);
-        node = solution.mergeTwoLists2(node, node2);
+        node = solution.mergeTwoLists3(node, node2);
         System.out.print(node.val + "->");
         System.out.print(node.next.val + "->");
         System.out.print(node.next.next.val + "->");
