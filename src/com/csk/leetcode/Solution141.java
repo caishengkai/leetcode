@@ -21,12 +21,12 @@ public class Solution141 {
      * @param head
      * @return
      */
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle(ListNode141 head) {
         if (head == null || head.next == null) {
             return false;
         }
 
-        Set<ListNode> set = new HashSet<>();
+        Set<ListNode141> set = new HashSet<>();
         while (head != null && set.add(head)) {
             head = head.next;
         }
@@ -42,13 +42,13 @@ public class Solution141 {
      * @param head
      * @return
      */
-    public boolean hasCycle2(ListNode head) {
+    public boolean hasCycle2(ListNode141 head) {
         if (head == null || head.next == null) {
             return false;
         }
 
-        ListNode fast = head.next;
-        ListNode slow = head;
+        ListNode141 fast = head.next;
+        ListNode141 slow = head;
 
         while (fast != null && slow != null) {
             if (fast == slow) {
@@ -66,10 +66,10 @@ public class Solution141 {
     }
 }
 
-class ListNode {
+class ListNode141 {
     int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    ListNode141 next;
+    ListNode141() {}
+    ListNode141(int val) { this.val = val; }
+    ListNode141(int val, ListNode141 next) { this.val = val; this.next = next; }
 }
